@@ -11,3 +11,13 @@ frontend/dist
 # OS
 .DS_Store
 Thumbs.db
+
+
+cat >> .gitignore << 'EOF'
+
+# Mac OS
+._.DS_Store
+._backend
+._frontend
+.DS_Store
+EOF
