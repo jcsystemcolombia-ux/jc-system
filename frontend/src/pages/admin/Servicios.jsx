@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import AdminLayout from '../../components/AdminLayout'
 import { getServicios, editarServicio, getClientes, getVentasPorCliente, getComprasDisponibles, getCompras } from '../../services/api'
 import DarkSelect from '../../components/DarkSelect'
+import InputMoneda from '../../components/InputMoneda'
 
 
 const estados = ['pendiente', 'completado', 'garantia', 'cancelado']
@@ -508,28 +509,26 @@ const cargarDatos = async () => {
                   placeholder="Describe qué se hizo en el servicio..."
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Valor</label>
-                  <input
-                    type="number"
-                    value={formEditar.valor}
-                    onChange={(e) => setFormEditar({ ...formEditar, valor: e.target.value })}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="0"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Pago Inversión</label>
-                  <input
-                    type="number"
-                    value={formEditar.pagoInversion}
-                    onChange={(e) => setFormEditar({ ...formEditar, pagoInversion: e.target.value })}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="0"
-                  />
-                </div>
-              </div>
+<div className="grid grid-cols-2 gap-3">
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">Valor</label>
+    <InputMoneda
+      value={formEditar.valor}
+      onChange={(val) => setFormEditar({ ...formEditar, valor: val })}
+      placeholder="$0"
+      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">Pago Inversión</label>
+    <InputMoneda
+      value={formEditar.pagoInversion}
+      onChange={(val) => setFormEditar({ ...formEditar, pagoInversion: val })}
+      placeholder="$0"
+      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+</div>
               {formEditar.valor && parseFloat(formEditar.valor) > 0 && (
                   <div className="bg-blue-50 dark:bg-blue-900 rounded-lg px-4 py-3">
                     <div className="flex justify-between text-sm">
@@ -648,13 +647,11 @@ const cargarDatos = async () => {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Valor del repuesto</label>
-          <input
-            type="number"
+          <InputMoneda
             value={formGarantia.garantiaValor}
-            onChange={(e) => setFormGarantia({ ...formGarantia, garantiaValor: e.target.value })}
+            onChange={(val) => setFormGarantia({ ...formGarantia, garantiaValor: val })}
+            placeholder="$0"
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="0"
-            min="0"
           />
           <p className="text-xs text-gray-400 mt-1">Si es mayor a $0 se registrará automáticamente en Gastos como Garantía</p>
         </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import AdminLayout from '../../components/AdminLayout'
 import { getGastos, crearGasto, editarGasto } from '../../services/api'
+import InputMoneda from '../../components/InputMoneda'
 
 const tiposGasto = ['JC System', 'Personal']
 const categoriasGasto = ['Obligacion', 'Mercado', 'Transporte', 'Alimentacion', 'Entretenimiento', 'Gastos JC', 'Otros']
@@ -358,12 +359,11 @@ const gastosFiltrados = gastos.filter(g => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Valor *</label>
-                  <input
-                    type="number"
+                  <InputMoneda
                     value={form.valor}
-                    onChange={(e) => setForm({ ...form, valor: e.target.value })}
+                    onChange={(val) => setForm({ ...form, valor: val })}
+                    placeholder="$0"
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="0"
                     required
                   />
                 </div>

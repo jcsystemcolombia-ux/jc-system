@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import AdminLayout from '../../components/AdminLayout'
 import { getCompras, crearCompra, editarCompra, getProveedores, agregarStock } from '../../services/api'
 import DarkSelect from '../../components/DarkSelect'
+import InputMoneda from '../../components/InputMoneda'
 
 const tiposPago = ['Transferencia', 'Efectivo', 'Nequi', 'Daviplata']
 const tiposProducto = ['Equipos de Cómputo', 'Celulares', 'Repuestos']
@@ -519,17 +520,16 @@ const Compras = () => {
                     required
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Valor Unitario *</label>
-                  <input
-                    type="number"
-                    value={form.valorUnitario}
-                    onChange={(e) => setForm({ ...form, valorUnitario: e.target.value })}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="0"
-                    required
-                  />
-                </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Valor Unitario *</label>
+                    <InputMoneda
+                      value={form.valorUnitario}
+                      onChange={(val) => setForm({ ...form, valorUnitario: val })}
+                      placeholder="$0"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Pago *</label>
                   <select
@@ -615,12 +615,11 @@ const Compras = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Valor unitario</label>
-                <input
-                  type="number"
+                <InputMoneda
                   value={formStock.valorUnitario}
-                  onChange={(e) => setFormStock({ ...formStock, valorUnitario: e.target.value })}
+                  onChange={(val) => setFormStock({ ...formStock, valorUnitario: val })}
+                  placeholder="$0"
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Dejar vacío para mantener el mismo"
                 />
                 <p className="text-xs text-gray-400 mt-1">Si el precio cambió actualízalo aquí</p>
               </div>
