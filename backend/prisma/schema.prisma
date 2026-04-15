@@ -1,0 +1,181 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  email     String   @unique
+  password  String
+  rol       String   @default("cliente")
+  clientePrincipalId Int?
+  empresaId Int?
+  empresa   Empresa? @relation(fields: [empresaId], references: [id])
+  clientePrincipal   Usuario?  @relation("SubClientes", fields: [clientePrincipalId], references: [id])
+  subClientes        Usuario[] @relation("SubClientes")
+  telefono  String?
+  recibeNotificaciones Boolean @default(true)
+  nitCedula String?
+  direccion         String?
+  direccionAdicional String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  servicios       Servicio[]
+  ventas          Venta[]
+  cuentasCobro    CuentaCobro[]
+  citas           Cita[]
+}
+
+model Servicio {
+  id          Int      @id @default(autoincrement())
+  tipo        String
+  descripcion String
+  informeTecnico String?
+  citaId Int? @unique
+  cita   Cita? @relation(fields: [citaId], references: [id])
+  garantiaVentaId Int?
+  garantiaValor   Float?
+  compraRepuestoId Int?
+  garantiaVenta   Venta? @relation("GarantiaVenta", fields: [garantiaVentaId], references: [id])
+  valor       Float
+  pagoInversion Float @default(0)
+  estado      String   @default("pendiente")
+  fechaServicio DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  usuarioId   Int
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
+  cuentaCobro CuentaCobro?
+}
+
+model Venta {
+  id            Int      @id @default(autoincrement())
+  tipoPago      String
+  pagoInversion Float    @default(0)
+  createdAt     DateTime @default(now())
+
+  usuarioId     Int
+  usuario       Usuario  @relation(fields: [usuarioId], references: [id])
+  items         VentaItem[]
+  cuentaCobro   CuentaCobro?
+  serviciosGarantia Servicio[] @relation("GarantiaVenta")
+}
+
+model VentaItem {
+  id           Int     @id @default(autoincrement())
+  producto     String
+  proveedor    String?
+  proveedorId  Int?
+  valorCompra  Float   @default(0)
+  valorVenta   Float
+  ganancia     Float
+  cantidad     Int     @default(1)
+  tipoProducto String?
+  condicion    String?
+  compraId     Int?
+
+  ventaId      Int
+  venta        Venta   @relation(fields: [ventaId], references: [id])
+}
+
+model Compra {
+  id              Int        @id @default(autoincrement())
+  producto        String
+  proveedor       String?
+  proveedorId     Int?
+  proveedor_r     Proveedor? @relation(fields: [proveedorId], references: [id])
+  valorUnitario   Float
+  valorTotal      Float
+  cantidad        Int        @default(1)
+  cantidadDisponible Int     @default(1)
+  tipoPago        String
+  descripcion     String?
+  tipoProducto    String?
+  condicion       String?
+  tipoUso         String?
+  estado          String     @default("disponible")
+  ventaId         Int?
+  createdAt       DateTime   @default(now())
+}
+
+model Gasto {
+  id          Int      @id @default(autoincrement())
+  tipo        String
+  categoria   String
+  valor       Float
+  descripcion String?
+  fecha       DateTime @default(now())
+  createdAt   DateTime @default(now())
+}
+
+model CuentaCobro {
+  id          Int      @id @default(autoincrement())
+  total       Float
+  estado      String   @default("pendiente")
+  numeroCuenta Int   @unique @default(autoincrement())
+  items        Json?
+  fechaVence  DateTime?
+  fechaPago   DateTime?
+  createdAt   DateTime @default(now())
+
+  usuarioId   Int
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
+  servicioId  Int?     @unique
+  servicio    Servicio? @relation(fields: [servicioId], references: [id])
+  ventaId     Int?     @unique
+  venta       Venta?   @relation(fields: [ventaId], references: [id])
+}
+
+model Cita {
+  id          Int      @id @default(autoincrement())
+  fecha       DateTime
+  hora        String
+  descripcion String?
+  estado      String   @default("pendiente")
+  createdAt   DateTime @default(now())
+  servicio Servicio?
+
+  usuarioId   Int
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
+}
+
+model Empresa {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  nit       String?
+  direccion String?
+  telefono  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  usuarios  Usuario[]
+}
+
+model Proveedor {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  telefono  String?
+  nit       String?
+  direccion String?
+  tipo      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  compras   Compra[]
+}
+
+model ConfigRecordatorios {
+  id          Int      @id @default(autoincrement())
+  diasEspera  Int      @default(3)
+  frecuencia  String   @default("diario")
+  hora        Int      @default(10)
+  minutos     Int      @default(0)
+  updatedAt   DateTime @updatedAt
+}

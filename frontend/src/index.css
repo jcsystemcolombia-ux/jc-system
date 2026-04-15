@@ -1,0 +1,351 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: white;
+}
+
+.dark p {
+  color: #d1d5db;
+}
+
+.dark body {
+  background-color: #111827;
+  color: #f3f4f6;
+}
+
+.dark .text-gray-800 {
+  color: #f3f4f6;
+}
+
+.dark .text-gray-700 {
+  color: #e5e7eb;
+}
+
+.dark .text-gray-600 {
+  color: #d1d5db;
+}
+
+.dark .text-gray-500 {
+  color: #9ca3af;
+}
+
+.dark .bg-white {
+  background-color: #1f2937;
+}
+
+.dark .bg-gray-50 {
+  background-color: #111827;
+}
+
+.dark .bg-gray-100 {
+  background-color: #111827;
+}
+
+.dark .border-gray-100 {
+  border-color: #374151;
+}
+
+.dark .border-gray-300 {
+  border-color: #4b5563;
+}
+
+.dark .shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.dark .hover\:bg-gray-50:hover {
+  background-color: #374151;
+}
+
+.dark .hover\:bg-gray-50:hover p,
+.dark .hover\:bg-gray-50:hover span,
+.dark .hover\:bg-gray-50:hover td {
+  color: inherit;
+}
+
+.dark .bg-yellow-100 {
+  background-color: #78350f;
+  color: #fde68a;
+}
+
+.dark .text-yellow-700 {
+  color: #fde68a;
+}
+
+.dark .bg-green-100 {
+  background-color: #064e3b;
+  color: #6ee7b7;
+}
+
+.dark .text-green-700 {
+  color: #6ee7b7;
+}
+
+.dark .bg-blue-100 {
+  background-color: #1e3a5f;
+  color: #93c5fd;
+}
+
+.dark .text-blue-700 {
+  color: #93c5fd;
+}
+
+.dark .text-blue-600 {
+  color: #60a5fa;
+}
+
+.dark .bg-red-100 {
+  background-color: #7f1d1d;
+  color: #fca5a5;
+}
+
+.dark .text-red-700 {
+  color: #fca5a5;
+}
+
+.dark .bg-orange-100 {
+  background-color: #7c2d12;
+  color: #fdba74;
+}
+
+.dark .text-orange-700 {
+  color: #fdba74;
+}
+
+.dark .text-green-600 {
+  color: #34d399;
+}
+
+.dark .text-orange-500 {
+  color: #fb923c;
+}
+
+.dark .text-red-500 {
+  color: #f87171;
+}
+
+.dark .text-green-500 {
+  color: #4ade80;
+}
+
+.dark .text-yellow-500 {
+  color: #facc15;
+}
+
+.dark .text-emerald-600 {
+  color: #34d399;
+}
+
+.dark .text-indigo-600 {
+  color: #818cf8;
+}
+
+.dark .text-cyan-600 {
+  color: #22d3ee;
+}
+
+.dark .text-purple-600 {
+  color: #c084fc;
+}
+
+.dark .text-yellow-600 {
+  color: #facc15;
+}
+
+.dark .fc {
+  color: #f3f4f6;
+}
+
+.dark .fc-col-header-cell {
+  background-color: #1f2937;
+  color: #f3f4f6;
+}
+
+.dark .fc-daygrid-day {
+  background-color: #1f2937;
+}
+
+.dark .fc-daygrid-day-number {
+  color: #f3f4f6;
+}
+
+.dark .fc-scrollgrid {
+  border-color: #374151;
+}
+
+.dark .fc-scrollgrid-sync-table {
+  border-color: #374151;
+}
+
+.dark .fc td, .dark .fc th {
+  border-color: #374151;
+}
+
+.dark .fc-toolbar-title {
+  color: #f3f4f6;
+}
+
+.dark .fc-button {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+.dark .fc-button:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.dark .fc-day-today {
+  background-color: #1e3a5f !important;
+}
+
+.dark .recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: #1f2937 !important;
+  border-color: #374151 !important;
+  color: #f3f4f6 !important;
+}
+
+.dark .recharts-default-tooltip .recharts-tooltip-label {
+  color: #f3f4f6 !important;
+}
+
+.dark .recharts-default-tooltip .recharts-tooltip-item {
+  color: #d1d5db !important;
+}
+
+.dark .recharts-legend-item-text {
+  color: #d1d5db !important;
+}
+
+.dark .recharts-cartesian-axis-tick-value {
+  fill: #9ca3af;
+}
+
+.dark .recharts-cartesian-grid line {
+  stroke: #374151;
+}
+
+.dark .recharts-default-tooltip {
+  background-color: #1f2937 !important;
+  border-color: #4b5563 !important;
+}
+
+.dark .recharts-tooltip-cursor {
+  fill: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark input,
+.dark input[type="text"],
+.dark input[type="email"],
+.dark input[type="password"],
+.dark input[type="tel"],
+.dark input[type="number"],
+.dark input[type="date"] {
+  background-color: #374151 !important;
+  color: #f3f4f6 !important;
+  border-color: #4b5563 !important;
+}
+
+.dark input::placeholder {
+  color: #9ca3af !important;
+}
+
+.dark select {
+  background-color: #374151 !important;
+  color: #f3f4f6 !important;
+  border-color: #4b5563 !important;
+}
+
+.dark textarea {
+  background-color: #374151 !important;
+  color: #f3f4f6 !important;
+  border-color: #4b5563 !important;
+}
+
+/* React Select modo oscuro */
+.dark .react-select__control {
+  background-color: #374151 !important;
+  border-color: #4b5563 !important;
+}
+
+.dark .react-select__menu {
+  background-color: #374151 !important;
+  border-color: #4b5563 !important;
+}
+
+.dark .react-select__option {
+  background-color: #374151 !important;
+  color: #f3f4f6 !important;
+}
+
+.dark .react-select__option--is-focused {
+  background-color: #4b5563 !important;
+}
+
+.dark .react-select__option--is-selected {
+  background-color: #3b82f6 !important;
+}
+
+.dark .react-select__single-value {
+  color: #f3f4f6 !important;
+}
+
+.dark .react-select__input-container {
+  color: #f3f4f6 !important;
+}
+
+.dark .react-select__placeholder {
+  color: #9ca3af !important;
+}
+
+.dark .react-select__indicator {
+  color: #9ca3af !important;
+}
+
+.dark .react-select__indicator-separator {
+  background-color: #4b5563 !important;
+}
+
+.dark .react-select__multi-value {
+  background-color: #4b5563 !important;
+}
+
+.dark .react-select__multi-value__label {
+  color: #f3f4f6 !important;
+}
+
+/* Date picker modo oscuro */
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+/* Cuadros informativos modo oscuro */
+.dark .bg-blue-50 {
+  background-color: #1e3a5f !important;
+}
+
+.dark .text-blue-700 {
+  color: #93c5fd !important;
+}
+
+.dark .text-blue-600 {
+  color: #60a5fa !important;
+}
+
+.dark .react-select__input input {
+  color: #f3f4f6 !important;
+  caret-color: #f3f4f6 !important;
+  min-width: 100% !important;
+  width: 100% !important;
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.dark input[type="date"] {
+  color-scheme: dark;
+}

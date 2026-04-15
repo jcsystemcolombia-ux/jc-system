@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Servicio" ADD COLUMN     "pagoInversion" DOUBLE PRECISION NOT NULL DEFAULT 0;
