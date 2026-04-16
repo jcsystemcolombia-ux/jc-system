@@ -1,14 +1,31 @@
 import Select from 'react-select'
 import { useTheme } from '../context/ThemeContext'
+import { useEffect, useRef } from 'react'
 
 const DarkSelect = (props) => {
   const { modoOscuro } = useTheme()
+  const containerRef = useRef(null)
+
+  useEffect(() => {
+    if (!containerRef.current) return
+    const inputs = containerRef.current.querySelectorAll('input')
+    inputs.forEach(input => {
+      if (modoOscuro) {
+        input.style.color = 'white'
+        input.style.caretColor = 'white'
+      } else {
+        input.style.color = ''
+        input.style.caretColor = ''
+      }
+    })
+  }, [modoOscuro])
 
   const darkStyles = {
     control: (base) => ({
       ...base,
       backgroundColor: modoOscuro ? '#374151' : base.backgroundColor,
       borderColor: modoOscuro ? '#4b5563' : base.borderColor,
+      minWidth: '200px',
     }),
     menu: (base) => ({
       ...base,
@@ -27,8 +44,9 @@ const DarkSelect = (props) => {
     }),
     input: (base) => ({
       ...base,
-      color: modoOscuro ? '#f3f4f6' : base.color,
-      caretColor: modoOscuro ? '#f3f4f6' : base.caretColor,
+      color: modoOscuro ? 'white' : base.color,
+      caretColor: modoOscuro ? 'white' : 'auto',
+      opacity: 1,
     }),
     placeholder: (base) => ({
       ...base,
@@ -53,20 +71,29 @@ const DarkSelect = (props) => {
       ...base,
       color: modoOscuro ? '#f3f4f6' : base.color,
     }),
-
-    control: (base) => ({
-  ...base,
-  backgroundColor: modoOscuro ? '#374151' : base.backgroundColor,
-  borderColor: modoOscuro ? '#4b5563' : base.borderColor,
-  minWidth: '200px',
-}),
     valueContainer: (base) => ({
-    ...base,
-    overflow: 'visible',
+      ...base,
+      overflow: 'visible',
     }),
   }
 
-  return <Select {...props} styles={darkStyles} classNamePrefix="react-select" />
+return (
+  <div ref={containerRef}>
+    <Select 
+      {...props} 
+      styles={darkStyles} 
+      classNamePrefix="react-select"
+      onMenuOpen={() => {
+        if (!containerRef.current) return
+        const inputs = containerRef.current.querySelectorAll('input')
+        inputs.forEach(input => {
+          input.style.color = modoOscuro ? 'white' : ''
+          input.style.caretColor = modoOscuro ? 'white' : ''
+        })
+      }}
+    />
+  </div>
+)
 }
 
 export default DarkSelect

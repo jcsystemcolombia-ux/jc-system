@@ -349,3 +349,23 @@
 .dark input[type="date"] {
   color-scheme: dark;
 }
+
+.dark [class*="react-select__input-container"] {
+  color: white !important;
+  caret-color: white !important;
+}
+
+.dark [class*="react-select__input-container"] input {
+  color: white !important;
+  caret-color: white !important;
+}
+
+.dark .react-select__input input {
+  caret-color: white !important;
+  color: white !important;
+  background-color: transparent !important;
+}
+
+.dark .react-select__input {
+  min-width: 2px !important;
+}
