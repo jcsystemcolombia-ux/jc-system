@@ -139,6 +139,7 @@ model Cita {
   hora        String
   descripcion String?
   estado      String   @default("pendiente")
+  recordatorioCitaEnviado Boolean @default(false)
   createdAt   DateTime @default(now())
   servicio Servicio?
 

@@ -1,6 +1,6 @@
 const cron = require('node-cron')
 const prisma = require('../config/prisma')
-const { notificarRecordatorioPago } = require('./notificaciones')
+const { notificarRecordatorioPago, notificarRecordatorioCita } = require('./notificaciones')
 
 let tareaActual = null
 
@@ -68,6 +68,10 @@ const iniciarRecordatorios = async () => {
 
     tareaActual = cron.schedule(expresion, ejecutarRecordatorios)
 
+    // Cron cada 5 minutos para recordatorios de citas
+    cron.schedule('*/5 * * * *', ejecutarRecordatoriosCitas)
+    console.log('📅 Recordatorios de citas iniciados — revisión cada minuto')
+
     const frecuencia = config?.frecuencia || 'diario'
     const hora = config?.hora || 10
     const minutos = config?.minutos || 0
@@ -82,6 +86,42 @@ const iniciarRecordatorios = async () => {
 const reiniciarRecordatorios = async () => {
   console.log('🔄 Reiniciando recordatorios con nueva configuración...')
   await iniciarRecordatorios()
+}
+
+const ejecutarRecordatoriosCitas = async () => {
+  try {
+    const ahora = new Date()
+
+    const desde = new Date(ahora.getTime() + 50 * 60 * 1000)
+    const hasta = new Date(ahora.getTime() + 70 * 60 * 1000)
+
+    const citas = await prisma.cita.findMany({
+      where: {
+        estado: 'confirmada',
+        recordatorioCitaEnviado: false,
+        fecha: {
+          gte: desde,
+          lte: hasta
+        }
+      },
+      include: {
+        usuario: true
+      }
+    })
+
+    console.log(`📅 Citas próximas en 1 hora: ${citas.length}`)
+
+    for (const cita of citas) {
+      await notificarRecordatorioCita(cita, cita.usuario)
+      await prisma.cita.update({
+        where: { id: cita.id },
+        data: { recordatorioCitaEnviado: true }
+      })
+      console.log(`✅ Recordatorio de cita enviado a ${cita.usuario.nombre}`)
+    }
+  } catch (error) {
+    console.error('Error enviando recordatorios de citas:', error)
+  }
 }
 
 module.exports = { iniciarRecordatorios, reiniciarRecordatorios }

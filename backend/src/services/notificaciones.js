@@ -226,6 +226,20 @@ Para pagar consigna a:
   }
 }
 
+const notificarRecordatorioCita = async (cita, cliente) => {
+  if (!cliente.telefono || cliente.recibeNotificaciones === false) return
+
+  const mensaje = `⏰ Hola ${cliente.nombre}, te recordamos que tienes una cita programada en *1 hora*.
+
+📅 Fecha: ${formatearFechaWhatsApp(cita.fecha)}
+🕐 Hora: ${cita.hora}
+📝 Servicio: ${cita.descripcion || 'Servicio técnico'}
+
+Por favor llega puntual. ¡Te esperamos! 🙏`
+
+  await enviarMensaje(cliente.telefono, mensaje)
+}
+
 module.exports = {
   notificarCitaCreada,
   notificarCitaConfirmada,
@@ -233,5 +247,6 @@ module.exports = {
   notificarCitaCompletada,
   notificarCuentaCobro,
   notificarCuentaPagada,
-  notificarRecordatorioPago
+  notificarRecordatorioPago,
+  notificarRecordatorioCita
 }
